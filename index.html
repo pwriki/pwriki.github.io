@@ -1,15 +1,85 @@
 <html>
 <head>
-<title> Mishevi </title>
+<title> Kalkulator </title>
 <head/>
 <body>
 
 
+<img src="https://lh3.googleusercontent.com/proxy/nZIWgAche_7aULaGYhtO9GbLz9ECkCTGU2-DZucSwph5dhQ7L6ny-ukTKnU1-OzekMI_qn8x6sAYtX3EXUzBzLyoAx5d3eeNLJl2qHSvzihdyMb8Y7payDxY" alt="Flowers in Chania">
 
-<h2>
-<p> Mish </p>
-</h2>
-<hr>
+<div class="jumbotron">
+  <div class="container">
+   <h2 style="color:DodgerBlue;">Kalkulator valuta</h2>
+   <p class="lead">Pretvori valutu</p>
+   <form class="form-inline">
+     <div class="form-group mb-2">
+        <input type="number" class="form-control" id="amount"/>
+     </div>
+     <div class="form-group mx-sm-3 mb-2">
+        <select class="form-control" id="currency-1" required>
+          <option>HRK</option>
+          <option>EUR</option>
+          <option>USD</option>
+        </select>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <label>convert to</label>
+        <select class="form-control" id="currency-2" required>
+          <option>EUR</option>
+          <option>USD</option>
+          <option>HRK</option>
+        </select>
+      </div>  
+      <button class="btn calculate-btn btn-primary mb-2">Prikaži rezultat!</button>
+    </form>
+    <div class="result">
+      <p>
+        <span class="given-amount"></span> 
+        <span class="base-currency"></span>
+        <span class="final-result"></span> 
+        <span class="second-currency"></span>
+      </p>
+    </div>
+  </div> 
+</div>
+
+<script> var crrncy = {'EUR': {'HRK': 7.55, 'USD': 0.83}, 'USD': {'HRK': 6.45, 'EUR': 1.2}}
+var btn = document.querySelector('.calculate-btn');
+var baseCurrencyInput = document.getElementById('currency-1');
+var secondCurrencyInput = document.getElementById('currency-2');
+var amountInput = document.getElementById('amount');
+var toShowAmount = document.querySelector('.given-amount');
+var toShowBase = document.querySelector('.base-currency');
+var toShowSecond = document.querySelector('.second-currency');
+var toShowResult = document.querySelector('.final-result');
+
+function convertCurrency(event) {
+  event.preventDefault();
+  var amount = amountInput.value;
+  var from = baseCurrencyInput.value;
+  var to = secondCurrencyInput.value;
+  var result = 0;
+  
+  try{
+    if (from == to){
+      result = amount;
+    } else {
+     result = amount * crrncy[from][to];
+  }
+  }
+  catch(err) {
+    result = amount * (1 / crrncy[to][from]);
+  }
+  
+  toShowAmount.innerHTML = amount;
+  toShowBase.textContent = from + ' = ';
+  toShowSecond.textContent = to;
+  toShowResult.textContent = result; 
+}
+
+btn.addEventListener('click', convertCurrency);
+
+</script>
 
 
 
